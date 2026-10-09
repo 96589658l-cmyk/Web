@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="拾光，一个收集生活灵感与日常美好的小小空间。">
+  <title>拾光 · 留一点时间给喜欢的事</title>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f3ed;
+      --ink: #243c33;
+      --muted: #6d786f;
+      --line: #daddd2;
+      --panel: #e7ebdf;
+      --accent: #295242;
+      --paper: #fffcf5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 32px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    body.dark {
+      color-scheme: dark;
+      --bg: #17261f;
+      --ink: #eeeede;
+      --muted: #afbcaf;
+      --line: #3d4c41;
+      --panel: #293d2f;
+      --accent: #b9d3b1;
+      --paper: #203329;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid #bf8c41;
+      outline-offset: 6px;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: auto;
+      padding: 0 48px;
+    }
+
+    header {
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .brand-mark {
+      font-size: 30px;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 14px;
+    }
+
+    nav a {
+      color: var(--muted);
+    }
+
+    nav a:hover {
+      color: var(--ink);
+    }
+
+    .theme {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--ink);
+      background: transparent;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      gap: 65px;
+      padding: 85px 0 75px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      background: #7c976e;
+      border-radius: 50%;
+    }
+
+    h1 {
+      margin: 24px 0;
+      font-family: Georgia, "SimSun", serif;
+      font-size: clamp(38px, 4.4vw, 57px);
+      font-weight: 500;
+      line-height: 1.45;
+      letter-spacing: 1px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: #8a986e;
+    }
+
+    .intro {
+      max-width: 390px;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--muted);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 30px;
+      margin-top: 24px;
+      padding: 16px 23px;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 5px;
+      font-size: 14px;
+      transition: transform 0.2s;
+    }
+
+    .cta:hover {
+      transform: translateY(-3px);
+    }
+
+    .art {
+      position: relative;
+      height: 390px;
+      overflow: hidden;
+      background: #dce3cf;
+      border-radius: 180px 180px 12px 12px;
+    }
+
+    .art svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .art-label {
+      position: absolute;
+      bottom: 23px;
+      left: 25px;
+      font: 11px Georgia, serif;
+      letter-spacing: 2px;
+      color: #f5f3ed;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin: 15px 0 24px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 23px;
+      font-weight: 500;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .number {
+      font: 13px Georgia, serif;
+      color: var(--muted);
+    }
+
+    .card h3 {
+      margin: 30px 0 13px;
+      font-size: 19px;
+      font-weight: 500;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      margin-top: 55px;
+      padding: 30px 34px;
+      background: var(--panel);
+      border-radius: 8px;
+    }
+
+    .note h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .note p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .note-mark {
+      font: 55px Georgia, serif;
+      color: #8a986e;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 35px 0;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .fade {
+      animation: rise 0.7s ease both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .wrap {
+        padding: 0 24px;
+      }
+
+      header {
+        height: 85px;
+      }
+
+      nav {
+        gap: 18px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 50px 0;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .art {
+        width: 100%;
+        max-width: 440px;
+        height: 310px;
+        margin: auto;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card h3 {
+        margin-top: 18px;
+      }
+
+      .section-title span,
+      .note-mark {
+        display: none;
+      }
+
+      .note {
+        padding: 24px;
+      }
+
+      footer {
+        flex-direction: column;
+        line-height: 1.7;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#" aria-label="拾光首页">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        拾光
+      </a>
+
+      <nav aria-label="主导航">
+        <a href="#explore">日常灵感</a>
+        <a href="#about">关于这里</a>
+        <button
+          class="theme"
+          type="button"
+          aria-label="切换为深色模式"
+          aria-pressed="false"
+        >◐</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero fade" aria-labelledby="title">
+        <div>
+          <div class="eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            A LITTLE SPACE FOR YOURSELF
+          </div>
+
+          <h1 id="title">
+            慢一点，<br>
+            让喜欢的事<br>
+            <em>慢慢发生。</em>
+          </h1>
+
+          <p class="intro">
+            在忙碌的日常里，留一处安静的角落。<br>
+            记录灵感，探索新意，也享受每个平凡瞬间。
+          </p>
+
+          <a class="cta" href="#explore">
+            发现日常里的美好
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="art">
+          <svg
+            viewBox="0 0 430 430"
+            role="img"
+            aria-labelledby="art-title"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            <title id="art-title">暖阳下的群山、绿叶和陶瓷花瓶</title>
+
+            <defs>
+              <linearGradient id="sky" x2="0" y2="1">
+                <stop stop-color="#e3e7d8"/>
+                <stop offset="1" stop-color="#c9d3bb"/>
+              </linearGradient>
+
+              <linearGradient id="vase" x2="1" y2="0">
+                <stop stop-color="#b56540"/>
+                <stop offset=".6" stop-color="#ce8d60"/>
+                <stop offset="1" stop-color="#b9754c"/>
+              </linearGradient>
+            </defs>
+
+            <path fill="url(#sky)" d="M0 0h430v430H0z"/>
+            <circle cx="310" cy="107" r="47" fill="#f4dfaa"/>
+
+            <path
+              d="M0 235Q90 115 220 242T460 190V430H0Z"
+              fill="#9fac8b"
+            />
+            <path
+              d="M0 290Q145 182 290 296T440 264V430H0Z"
+              fill="#78896e"
+            />
+            <path
+              d="M0 336Q140 262 285 330T450 320V430H0Z"
+              fill="#526e57"
+            />
+
+            <ellipse
+              cx="226" cy="395" rx="77" ry="12"
+              fill="#294c3e" opacity=".35"
+            />
+
+            <path
+              d="M217 302Q198 232 230 156
+                 M221 278Q263 226 279 195
+                 M215 262Q181 220 161 192"
+              fill="none"
+              stroke="#344c37"
+              stroke-width="4"
+            />
+
+            <g fill="#365d42">
+              <ellipse
+                cx="230" cy="175" rx="13" ry="33"
+                transform="rotate(17 230 175)"
+              />
+              <ellipse
+                cx="213" cy="217" rx="13" ry="30"
+                transform="rotate(-32 213 217)"
+              />
+              <ellipse
+                cx="249" cy="237" rx="13" ry="30"
+                transform="rotate(52 249 237)"
+              />
+              <ellipse
+                cx="273" cy="205" rx="11" ry="26"
+                transform="rotate(32 273 205)"
+              />
+              <ellipse
+                cx="175" cy="211" rx="12" ry="29"
+                transform="rotate(-44 175 211)"
+              />
+            </g>
+
+            <path
+              d="M194 295H248L245 318
+                 Q280 354 260 387
+                 Q228 405 190 389
+                 Q170 358 198 318Z"
+              fill="url(#vase)"
+            />
+
+            <ellipse
+              cx="221" cy="295" rx="27" ry="6"
+              fill="#9f5c3c"
+            />
+          </svg>
+
+          <span class="art-label">
+            STILLNESS IS A KIND OF BEAUTY.
+          </span>
+        </div>
+      </section>
+
+      <section id="explore" aria-labelledby="explore-title">
+        <div class="section-title">
+          <h2 id="explore-title">把日子过成喜欢的模样</h2>
+          <span>SMALL THINGS, GOOD DAYS</span>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <span class="number">01 / OBSERVE</span>
+            <h3>发现一点美好</h3>
+            <p>
+              窗边的光、一杯刚好的咖啡、路边的绿意。
+              值得记录的事，常常就在身边。
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="number">02 / CREATE</span>
+            <h3>留住一闪而过的灵感</h3>
+            <p>
+              写几行文字，画一张小画，
+              让脑海里的想法有一个可以落脚的地方。
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="number">03 / GROW</span>
+            <h3>每天向前一小步</h3>
+            <p>
+              读几页书，学一个新东西。
+              无需着急，微小的进步也有自己的分量。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="note" id="about" aria-labelledby="about-title">
+        <div>
+          <h2 id="about-title">关于拾光</h2>
+          <p>
+            一个收集日常美好与生活灵感的小小空间。
+            愿你在这里，找到属于自己的节奏。
+          </p>
+        </div>
+        <span class="note-mark" aria-hidden="true">“</span>
+      </section>
+    </main>
+
+    <footer>
+      <span>© <span id="year">2026</span> 拾光 · 把时间留给热爱</span>
+      <span>MADE FOR THE LITTLE MOMENTS.</span>
+    </footer>
+  </div>
+
+  <script>
+    const themeButton = document.querySelector(".theme");
+
+    themeButton.addEventListener("click", () => {
+      const isDark = document.body.classList.toggle("dark");
+
+      themeButton.setAttribute("aria-pressed", String(isDark));
+      themeButton.setAttribute(
+        "aria-label",
+        isDark ? "切换为浅色模式" : "切换为深色模式"
+      );
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
